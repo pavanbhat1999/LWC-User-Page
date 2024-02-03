@@ -1,0 +1,67 @@
+<template>
+    <lightning-modal-header label="User Creation"></lightning-modal-header>
+    <lightning-modal-body> 
+        <!-- ! new user creation using flow -->
+        <!-- <lightning-flow flow-api-name={flowApiName}></lightning-flow> -->
+        <!-- create a user using a custom form -->
+        <template if:true={createUser}>
+            <div class="slds-col slds-size_3-of-3 slds-var-m-around_x-small">
+                <lightning-input type="text" label="FirstName"  required  onchange={handleFormChange}></lightning-input>
+                <lightning-input type="text" label="LastName"   required  onchange={handleFormChange}></lightning-input>
+                <lightning-input type="text" label="UserName"   required  onchange={handleFormChange}></lightning-input>
+                <lightning-input type="text" label="Email"      required  onchange={handleFormChange}></lightning-input>
+                <lightning-input type="text" label="Alias"      required  onchange={handleFormChange}></lightning-input>
+                <lightning-combobox type="" label="Profile"     required  onchange={handleFormChange} options={profileOptions}></lightning-combobox><br>
+                <lightning-combobox type="" label="Time Zone"   required  onchange={handleFormChange} options={timeZoneOptions}></lightning-combobox><br>
+                <!-- ! fix this not working  -->
+                <!-- <lightning-input type="text" label="Role" value={u.userrole.name} required></lightning-input><br> -->
+                <div style="width:20%">
+                    <lightning-input type="toggle"  label="isActive" onchange={handleFormChange}></lightning-input>
+                </div>
+              
+            </div>
+
+            <lightning-dual-listbox 
+            label="Select Queues"
+            source-label="Available Queues"
+            selected-label="Selected Queues"
+            field-level-help="Please Select Queues to be assigned"
+            disabled={disabledValue}
+            options={options}
+            value={values}
+            onchange={handleQueueChange}
+         >
+         </lightning-dual-listbox>
+         <!-- Lightning Dual Box - Public Groups -->
+             <lightning-dual-listbox 
+             label="Select Public Group"
+             source-label="Available Public Group"
+             selected-label="Selected Public Groups"
+             field-level-help="Please Select Public Group to be assigned"
+             disabled={disabledValue}
+             options={optionsPG}
+             value={valuesPG}
+             onchange={handlePublicGroupChange}
+          >
+          </lightning-dual-listbox>
+              <!-- Lightning Dual Box - Permission Sets -->
+             <lightning-dual-listbox 
+             label="Select Permission Sets"
+             source-label="Available Permission Sets"
+             selected-label="Selected Permission Sets"
+             field-level-help="Please Select Permission Sets to be assigned"
+             disabled={disabledValue}
+             options={optionPS}
+             value={valuesPS}
+             onchange={handlePermissionSetChange}
+             
+             
+         >
+           </lightning-dual-listbox>
+        </template>       
+
+    </lightning-modal-body>
+    <lightning-modal-footer>
+        <lightning-button variant="brand" label="Save" title="Primary action" onclick={handleSave} class="slds-align_absolute-center slds-m-left_x-small"></lightning-button>
+    </lightning-modal-footer>
+</template>

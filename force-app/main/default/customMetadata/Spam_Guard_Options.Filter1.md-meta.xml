@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <label>Filter1</label>
+    <protected>false</protected>
+    <values>
+        <field>Subjects_Blocked__c</field>
+        <value xsi:type="xsd:string">Test GB,Test GB2,Test spam</value>
+    </values>
+    <values>
+        <field>from_address__c</field>
+        <value xsi:type="xsd:string">test@yammer.com</value>
+    </values>
+</CustomMetadata>

@@ -1,0 +1,78 @@
+<template>
+    <lightning-modal-header label="User Form"></lightning-modal-header>
+    <lightning-modal-body> 
+       <template if:true={userDetails}>
+        <a href={classicUserPageURL} target="_blank">Switch to Classic Experience</a>
+        <template for:each={userDetails} for:item="u">
+
+            <lightning-layout multiple-rows key={u}>
+                <div class="slds-col slds-size_3-of-3 slds-var-m-around_x-small">
+                <lightning-input type="text" label="Name" value={u.Name} required disabled={disabledValue} onchange={handleFormChange}></lightning-input>
+                <lightning-input type="text" label="Email" value={u.Email} required disabled={disabledValue} onchange={handleFormChange}></lightning-input>
+                <lightning-input type="text" label="Alias" value={u.Alias} required disabled={disabledValue} onchange={handleFormChange}></lightning-input>
+                <lightning-combobox type="" label="Profile" value={u.Profile.Name} options={profileOptions} required disabled={disabledValue} onchange={handleFormChange}></lightning-combobox><br>
+                <!-- ! fix this not working  -->
+                <!-- <lightning-input type="text" label="Role" value={u.userrole.name} required></lightning-input><br> -->
+                <div style="width:20%">
+                    <lightning-input type="toggle"  label="isActive" checked={u.IsActive} disabled={disabledValue} onchange={handleFormChange}></lightning-input>
+                </div>
+                </div>
+            </lightning-layout>
+        </template>
+       </template>
+       <!-- ? should use this or custom form  -->
+       <!-- <lightning-record-edit-form
+            object-api-name="User"
+            record-id={userId}>
+                <lightning-input-field field-name={nameField}> </lightning-input-field>
+                <div class="slds-var-m-top_medium">
+                    <lightning-button variant="brand" type="submit" label="Save">
+                    </lightning-button>
+                </div>
+       </lightning-record-edit-form> -->
+       <!-- Lightning Dual Box - Queues -->
+       <lightning-dual-listbox 
+       label="Select Queues"
+       source-label="Available Queues"
+       selected-label="Selected Queues"
+       field-level-help="Please Select Queues to be assigned"
+       disabled={disabledValue}
+       options={options}
+       value={values}
+       onchange={handleQueueChange}
+    >
+    </lightning-dual-listbox>
+    <!-- Lightning Dual Box - Public Groups -->
+        <lightning-dual-listbox 
+        label="Select Public Group"
+        source-label="Available Public Group"
+        selected-label="Selected Public Groups"
+        field-level-help="Please Select Public Group to be assigned"
+        disabled={disabledValue}
+        options={optionsPG}
+        value={valuesPG}
+        onchange={handlePublicGroupChange}
+     >
+     </lightning-dual-listbox>
+         <!-- Lightning Dual Box - Permission Sets -->
+        <lightning-dual-listbox 
+        label="Select Permission Sets"
+        source-label="Available Permission Sets"
+        selected-label="Selected Permission Sets"
+        field-level-help="Please Select Permission Sets to be assigned"
+        disabled={disabledValue}
+        options={optionPS}
+        value={valuesPS}
+        onchange={handlePermissionSetChange}
+        
+        
+    >
+      </lightning-dual-listbox>
+
+    </lightning-modal-body>
+    <lightning-modal-footer>
+        <template if:false={disabledValue}>
+            <lightning-button variant="brand" label="Save" title="Primary action" onclick={handleSave} class="slds-align_absolute-center slds-m-left_x-small"></lightning-button>
+        </template>
+    </lightning-modal-footer>
+</template>

@@ -1,0 +1,75 @@
+<!-- CreatedBy - Pavan Bhat (PVNB)
+Description - This component is written to simplify the process of creating and modifying the User records
+Created Date - 25-02-2023 -->
+<template>
+    <lightning-card >
+        <h1>Welcome to the Lightning User Page ⚡</h1>
+        <div class="slds-p-around_medium">
+            <!-- Create User button -->
+            <lightning-button-icon icon-name="utility:adduser" size="large" variant="brand"  alternative-text="Add user" class="slds-m-left_x-small" title="Add user" onclick={OpenUserCreateModal}></lightning-button-icon>
+            <!-- Add a User template which can be used as a sample for bulk load -->
+            <a href="" onclick={downloadTemplate}>
+                <lightning-button-icon icon-name="utility:download" size="large" variant="brand"  alternative-text="Download User Template" class="slds-m-left_x-small" title="Download User Template"></lightning-button-icon>
+            </a>
+            <!-- Switch to classic button -->
+            <a href={classicUserPageURL} target="_blank">        
+                <lightning-button-icon icon-name="utility:replace" size="large" variant="brand"  alternative-text="Switch to classic" class="slds-m-left_x-small" title="switch to classic Experience User Page"></lightning-button-icon>
+            </a>
+            <br><br>
+            <lightning-input
+            type="file"
+            label="Bulk User Creation : Please upload .csv file (You can download the Template Provided)"
+            accept=".csv"
+            onchange={handleFileUpload}
+            >
+            </lightning-input>
+            <!-- <br><br> -->
+            <!-- ?Working on mapping Retest Functionality-->
+            <!-- <template if:true={headers}>
+                <template for:each={headersUserObject} for:item="hu">
+                    <div class="slds-grid slds-gutters" key={hu}>
+                        <lightning-combobox
+                            name={hu}
+                            label={hu}
+                            options={headersOptionsFromFile}
+                            placeholder="Select Fields From File"
+                            onchange={onchangeMapping}
+                        >
+                    </lightning-combobox>
+                    </div>
+                </template>
+
+                <br>
+                <lightning-button variant="brand" label="Submit" title="Primary action"  class="slds-m-left_x-small" onclick={handleUploadWithMapping}></lightning-button>
+            </template> -->
+         
+            <!-- ?END Working on mapping -->
+            <template if:true={headers}>
+                <p>File Uploaded</p>
+                <lightning-button variant="brand" label="Submit" title="Primary action"  class="slds-m-left_x-small" onclick={handleUploadWithMapping}></lightning-button>
+            </template>
+            
+            <lightning-input type="search" label="Search User"  field-level-help="You can use Name and Alias for searching" value={searchUserName} onchange={changeSearchUserName} onkeypress={handleEnter}></lightning-input> <br/>
+            <lightning-button variant="brand" label="Search" title="Primary action" onclick={handleSubmitUser} class="slds-m-left_x-small"></lightning-button>
+            <lightning-button variant="brand" label="Export" title="Primary action" onclick={handleUserExport} class="slds-m-left_x-small"></lightning-button>
+
+        </div>
+
+
+        <!-- Get the data of the searched user  -->
+        <template if:true={existingUserList}>
+            <div class="dataTable">
+            <lightning-datatable
+                key-field="Id"
+                data={existingUserList}
+                columns={columns}
+                hide-checkbox-column="true"
+                show-row-number-column="true"
+                onrowaction={onRowActionClick}
+                column-widths-mode="auto" >
+
+            </lightning-datatable>
+            </div>
+        </template> 
+    </lightning-card>
+</template>
