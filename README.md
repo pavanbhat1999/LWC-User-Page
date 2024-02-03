@@ -16,12 +16,9 @@ To install and use the LWC User Page:
 
 4. Voila! You're ready to go.
 
-## Note
-
-**Caution:** This project is a work in progress (WIP), which means it is currently undergoing further development, documentation, and testing. Expect updates and improvements in the near future.
-
+> Note
+>**Caution:** This project is a work in progress (WIP), which means it is currently undergoing further development, documentation, and testing. Expect updates and improvements in the near future.
 Feel free to contribute to the project by testing, providing feedback, or submitting pull requests. Together, we can make the LWC User Page even better!
-
 For any inquiries or support, please reach out to the project maintainers.
 
 Happy coding! 🚀
