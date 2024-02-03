@@ -18,7 +18,7 @@ import getPS from '@salesforce/apex/lightningUserPage.getPS';
 import insertPermissionSetAssignment from '@salesforce/apex/lightningUserPage.insertPermissionSetAssignment';
 import LightningAlert from 'lightning/alert';
 
-export default class NnioCreateUserFlow extends LightningModal {
+export default class CreateUserFlow extends LightningModal {
     @wire(getPicklistValues, { recordTypeId: '012000000000000AAA', fieldApiName: TIMEZONE_FIELD })
     timeZoneValues;
     timeZoneOptions;

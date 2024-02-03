@@ -47,7 +47,7 @@ const columns = [
 
  
 ];
-export default class NnioUserAutomationCustom extends NavigationMixin(LightningElement) {
+export default class UserAutomationCustom extends NavigationMixin(LightningElement) {
     searchUserName;
     existingUserList;
     selectedUser;
