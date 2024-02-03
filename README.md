@@ -10,11 +10,18 @@ To install and use the LWC User Page:
 
 1. Clone the repository to your local machine using Git:
 
-2. Log in to your Salesforce org.
+`git clone https://github.com/pavanbhat1999/LWC-User-Page`
 
-3. Copy and paste the contents of the repository into the respective folder within your Salesforce org.
+2. Start Working on the project
 
-4. Voila! You're ready to go.
+`cd LWC-User-Page`
+
+3. Log in to your Salesforce org.
+
+` sf org login web -s -a mydevorg `
+
+
+ Voila! You're ready to go.
 
 > Note
 >**Caution:** This project is a work in progress (WIP), which means it is currently undergoing further development, documentation, and testing. Expect updates and improvements in the near future.
