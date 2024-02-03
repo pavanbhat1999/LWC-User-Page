@@ -22,10 +22,10 @@ To install and use the LWC User Page:
 ` sf org login web -s -a mydevorg `
 
 4. Run this command in a terminal to deploy the app.
-        ```
-        sf project deploy start -d force-app
-        ```
- Voila! You're ready to go.
+
+`sf project deploy start -d force-app`
+        
+Voila! You're ready to go.
 
 > Note
 >**Caution:** This project is a work in progress (WIP), which means it is currently undergoing further development, documentation, and testing. Expect updates and improvements in the near future.
