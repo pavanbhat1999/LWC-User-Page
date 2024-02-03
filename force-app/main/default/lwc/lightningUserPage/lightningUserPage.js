@@ -54,6 +54,7 @@ export default class NnioUserAutomationCustom extends NavigationMixin(LightningE
     columns = columns;
     userQueueList;
     classicUserPageURL;
+    downloadTemplateURL;
     // Variables for bulk data load  
     allCSVData;  
     datacsv; //uploading data
@@ -69,6 +70,7 @@ export default class NnioUserAutomationCustom extends NavigationMixin(LightningE
         this.initUser();
         console.log(window.location.origin)
         this.classicUserPageURL = window.location.origin+'/lightning/setup/ManageUsers/home';
+        this.downloadTemplateURL = USER_TEMPLATE;
     }
     // Init Data - User Details
     async initUser(){
@@ -86,8 +88,16 @@ export default class NnioUserAutomationCustom extends NavigationMixin(LightningE
     }
     //* Currently working on it
     // Download user template
-    downloadTemplate(){
-      console.log('Download Clicked');
+    downloadTemplate(event){
+      console.log('Download Template Clicked');
+      console.log(USER_TEMPLATE);
+      
+      // event.preventDefault();
+      // const link = document.createElement('a');
+      // link.href = window.URL.createObjectURL(USER_TEMPLATE);
+      // link.download = 'data.csv';
+      // link.click();
+
     }
     // File upload handler
     handleFileUpload(event) {
