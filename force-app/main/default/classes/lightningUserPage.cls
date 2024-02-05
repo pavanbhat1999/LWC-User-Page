@@ -37,6 +37,19 @@ public class lightningUserPage {
             @InvocableVariable
             public string Groups;
         }
+        @AuraEnabled
+        public static List<User> searchUser(String UserName)
+        {
+            UserName = '%' + UserName + '%';
+            List<User> usr = [select name,id,alias,Profile.name,UserRole.name,Country from User where name LIKE :UserName or alias LIKE :UserName order by name limit 50];
+            return usr;
+        }
+        @AuraEnabled
+        public static List<User> getUserDetail(String UserId)
+        {
+            List<User> usr = [select name,id,alias,email,profile.name,userrole.name,Country,IsActive from User where id=:UserId];
+            return usr;
+        }
         // Getting Queue membership of individual user
         @AuraEnabled
         public static List<GroupMember> getQueueFromUser(String Id)
@@ -134,7 +147,7 @@ public class lightningUserPage {
                 for(customUser usr:listUsers){
                     User newuser = new User();
                     System.debug('user name'+ usr.Alias);
-                    if(usr.Alias == '') //!Added to handle empty row submission
+                    if(usr.Alias == null) //!Added to handle empty row submission
                         break;
                     newuser.Alias = usr.alias;
                     newuser.FirstName = usr.FirstName;
@@ -167,7 +180,7 @@ public class lightningUserPage {
                         System.debug('New Record ID: ' + newRecordId);
                         List<String> queues = usr.Groups.split(';');
                         System.debug('Queues each = '+queues);
-                        Integer res = QueueFetchFromUser.insertQueueForUser(queues,newRecordId);
+                        Integer res = lightningUserPage.insertQueueForUser(queues,newRecordId);
                     } else {
                         // Handle the error if the insertion was not successful
                         for (Database.Error error : sr.getErrors()) {
@@ -177,7 +190,7 @@ public class lightningUserPage {
                     System.debug('Groups = '+ usr.Groups);
     
                 }
-               System.debug('User List'+ insertUsersList);
+               //System.debug('User List'+ insertUsersList);
                //insert(insertUsersList);
                return 'usercreation Successfull';
             } catch (Exception e) {
