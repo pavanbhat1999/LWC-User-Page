@@ -6,7 +6,7 @@ import TIMEZONE_FIELD from '@salesforce/schema/User.TimeZoneSidKey';
 import createUser from '@salesforce/apex/lightningUserPage.insertUser'
 import { ShowToastEvent } from "lightning/platformShowToastEvent";
 import NAME_FIELD from '@salesforce/schema/User.Name';
-import getUserDetail from '@salesforce/apex/UserSearch.getUserDetail';
+//import getUserDetail from '@salesforce/apex/UserSearch.getUserDetail';
 import getQueuesFromUser from '@salesforce/apex/lightningUserPage.getQueueFromUser';
 import getQueuesAll from '@salesforce/apex/lightningUserPage.getQueueFromAll';
 import getPublicGroupFromUser from '@salesforce/apex/lightningUserPage.getPublicGroupFromUser';
