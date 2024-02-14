@@ -9,13 +9,29 @@ Welcome to the LWC User Page project, a redesign of the user page in the Lightni
 
 1. User Page in lightning experience
 
+![main-page](/pics/page.png)
+
 2. Create user and modify user 
+
+![main-page](/pics/create-user.png)
 
 3. Modify public groups and queues in single screen 
 
+![main-page](/pics/queues.png)
+
 4. Search and Export users using different fields
 
+![main-page](/pics/search.png)
+
 5. Bulk user data load with groups 
+
+![main-page](/pics/bulk.png)
+
+6. Quick switch to classic for legacy features
+
+![main-page](/pics/classic.png)
+
+
 
 ## Installation and Usage
 
