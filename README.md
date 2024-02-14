@@ -5,6 +5,18 @@
 
 Welcome to the LWC User Page project, a redesign of the user page in the Lightning Experience with additional features aimed at enhancing user experience and customization options for Salesforce Admins/Developers. This project utilizes Lightning Web Components (LWC) to provide a more intuitive and efficient interface for day-to-day activities within Salesforce.
 
+## Features 
+
+1. User Page in lightning experience
+
+2. Create user and modify user 
+
+3. Modify public groups and queues in single screen 
+
+4. Search and Export users using different fields
+
+5. Bulk user data load with groups 
+
 ## Installation and Usage
 
 To install and use the LWC User Page:

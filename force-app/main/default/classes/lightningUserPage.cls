@@ -104,38 +104,49 @@ public class lightningUserPage {
         }
         // Insert User Single
         @AuraEnabled
-        public static String insertUser(String firstName,String lastName,String UserName,String Email,String Alias,Boolean isActive,String Profile,String TimeZone){
-            try {
-                
-                    User newuser = new User();
-                    System.debug('user Alias'+ Alias);
-                    newuser.Alias = alias;
-                    newuser.FirstName = FirstName;
-                    newuser.LastName = LastName;
-                    newuser.Username = Username;
-                    newuser.Email = Email;
-                    //newuser.Country = Country;
-                    //newuser.Department = Department;
-                    //newuser.FederationIdentifier = FederationIdentifier;
-                    //newuser.IsActive = usr.IsActive;
-                    newuser.IsActive = false;
-                    //newuser.Profileid = ProfileId;
-                    newuser.TimeZoneSidKey = TimeZone;
-                    newUser.LocaleSidKey = 'en_US';
-                    newUser.EmailEncodingKey = 'UTF-8';
-                    newUser.ProfileId = '00E3X000002OI0QUAW' ;
-                    newUser.LanguageLocaleKey = 'en_US';
-                   // newuser.CommunityNickname = CommunityNickname;
-                    //insertUsersList.add(newuser);
-                System.debug('New User = '+ newuser);
-              // System.debug('User Single'+ insertUsersList);
-               //insert(insertUsersList);
-               return 'usercreation Successfull';
-            } catch (Exception e) {
-                throw new AuraHandledException(e.getMessage());
-                
+    public static String insertUser(String firstName,String lastName,String UserName,String Email,String Alias,Boolean isActive,String Profile,String TimeZone){
+        try {
+            
+                Profile myProfile = [SELECT Id FROM Profile WHERE Name = :Profile LIMIT 1];
+                User newuser = new User();
+                System.debug('user Alias'+ Alias);
+                newuser.Alias = alias;
+                newuser.FirstName = FirstName;
+                newuser.LastName = LastName;
+                newuser.Username = Username;
+                newuser.Email = Email;
+                //newuser.Country = Country;
+                //newuser.Department = Department;
+                //newuser.FederationIdentifier = FederationIdentifier;
+                //newuser.IsActive = usr.IsActive;
+                newuser.IsActive = true;
+                //newuser.Profileid = ProfileId;
+                newuser.TimeZoneSidKey = TimeZone;
+                newUser.LocaleSidKey = 'en_US';
+                newUser.EmailEncodingKey = 'UTF-8';
+                newUser.ProfileId = myProfile.Id ;
+                newUser.LanguageLocaleKey = 'en_US';
+               // newuser.CommunityNickname = CommunityNickname;
+                //insertUsersList.add(newuser);
+            System.debug('New User = '+ newuser);
+            Database.SaveResult sr =Database.insert(newuser);
+            if (sr.isSuccess()) {
+                // Retrieve the ID of the new record
+                Id newRecordId = sr.getId();
+                System.debug('New Record ID: ' + newRecordId);
+                return newRecordId;
+            } else {
+                // Handle the error if the insertion was not successful
+                for (Database.Error error : sr.getErrors()) {
+                    System.debug('Error message: ' + error.getMessage());
+                }
             }
+            return 'error';
+        } catch (Exception e) {
+            throw new AuraHandledException(e.getMessage());
+            
         }
+    }
         // Insert User Bulk
         @AuraEnabled
         public static String insertUserBulk(String userJSON){
