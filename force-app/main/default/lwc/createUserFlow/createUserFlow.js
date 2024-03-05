@@ -157,7 +157,7 @@ export default class CreateUserFlow extends LightningModal {
         console.log("🚀 ~ this.userProfile:", this.userProfile);
         console.log("🚀 ~ this.userIsActive:", this.userIsActive);
         console.log("🚀 ~ this.userTimeZone:", this.userTimeZone);
-        this.close();
+       
         try {
             let useridACK = await createUser({'Alias':this.userAlias,'Email':this.userEmail,'firstName':this.userFirstName,'UserName':this.userUserName,'lastName':this.userLastName,'Profile':this.userProfile,'isActive':this.userIsActive,'TimeZone':this.userTimeZone});
             console.log("🚀 ~ useridACK:", useridACK);
@@ -183,6 +183,7 @@ export default class CreateUserFlow extends LightningModal {
                     theme: 'Success', // a green theme intended for success status
                     label: '🎊🎉 Success 🎉🎊', // this is the header text
                 });
+                this.close(this.userFirstName);
             }
         } catch (error) {
             alert(error.body.message)

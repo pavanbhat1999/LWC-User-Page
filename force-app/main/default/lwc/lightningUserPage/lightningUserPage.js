@@ -21,6 +21,22 @@ const columns = [
             } 
     },
     {
+      label: 'Profile',
+      fieldName: 'Profile',
+      type: 'text',
+      typeAttributes: { 
+        label: { fieldName: 'Profile' },
+        } 
+    },
+    {
+      label: 'Active',
+      fieldName: 'IsActive',
+      type: 'text',
+      typeAttributes: { 
+        label: { fieldName: 'IsActive' },
+        } 
+    },
+    {
         type: 'button-icon',
         label: 'View',
         // initialWidth: 75,
@@ -74,10 +90,10 @@ export default class UserAutomationCustom extends NavigationMixin(LightningEleme
     }
     // Init Data - User Details
     async initUser(){
-        let loadUser = await searchUser({UserName : 'Pavan Bhat'});
+        let loadUser = await searchUser({UserName : 'Pavan'});
         this.existingUserList = loadUser.map(
-            (data) => ({...{'Name':data.Name,'Id':data.Id,'newID':'/'+data.Id}})
-        )
+            (data) => ({...{'Name':data.Name,'Id':data.Id,'newID':'/'+data.Id,'Profile':data.Profile.Name,'IsActive':data.IsActive}})
+        )       
     }
     // clearing the temporary data 
     clearTmpData(){
@@ -278,7 +294,7 @@ onchangeMapping(e){
         // get details and make a url out of it to navigate  
         let newres = [];
         for(var j=0;j<res.length;j++)
-        newres.push({'Name':res[j].Name,'Id':res[j].Id,'Profile':res[j].Profile.Name,'newID':'/'+res[j].Id});  
+        newres.push({'Name':res[j].Name,'Id':res[j].Id,'Profile':res[j].Profile.Name,'newID':'/'+res[j].Id,'IsActive':res[j].IsActive});  
         this.existingUserList = newres;
         console.log('Export User Json stringify',JSON.stringify(newres));
     }

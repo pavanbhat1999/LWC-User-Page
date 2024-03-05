@@ -41,7 +41,7 @@ public class lightningUserPage {
         public static List<User> searchUser(String UserName)
         {
             UserName = '%' + UserName + '%';
-            List<User> usr = [select name,id,alias,Profile.name,UserRole.name,Country from User where name LIKE :UserName or alias LIKE :UserName order by name limit 50];
+            List<User> usr = [select name,id,alias,Profile.name,UserRole.name,Country,isactive from User where name LIKE :UserName or alias LIKE :UserName order by name limit 50];
             return usr;
         }
         @AuraEnabled
