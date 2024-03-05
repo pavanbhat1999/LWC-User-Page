@@ -212,13 +212,15 @@ public class lightningUserPage {
         // Update the  User
        
         @AuraEnabled
-        public static void updateUser(String UserId,String FirstName,String LastName,String Alias,Boolean IsActive){
+        public static void updateUser(String UserId,String FirstName,String LastName,String Alias,Boolean IsActive,String Profile){
             try {
                 User usr = [Select Id,FirstName,LastName from User where Id=:UserId];
+                List<Profile> prof = [Select Id from profile where Name=:Profile limit 1];
                 usr.FirstName = FirstName;
                 usr.LastName = LastName;
                 usr.Alias = Alias;
                 usr.IsActive = IsActive;
+                usr.profileid = prof[0].id;
                 update usr;
             } catch (Exception e) {
                 throw new AuraHandledException(e.getMessage());
