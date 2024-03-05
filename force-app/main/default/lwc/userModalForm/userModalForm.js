@@ -44,6 +44,7 @@ export default class UserModalForm extends LightningModal {
     userName=''; //!not tested
     userAlias;
     userIsActive;
+    profile;
     profileOptions;
     classicUserPageURL;
     async connectedCallback(){
@@ -156,6 +157,7 @@ export default class UserModalForm extends LightningModal {
             break;
         case 'Profile':
             console.log('Profile',e.target.value)
+            this.profile = e.target.value;
             break;
         case 'isActive':
             console.log('is active',e.target.checked);
@@ -183,7 +185,7 @@ export default class UserModalForm extends LightningModal {
         console.log('alias' , this.userAlias);
         console.log('Active',this.userIsActive);
         //! remove after testing
-        let userCreateResponse = await updateUser({'UserId':this.userId,'FirstName':arr[0],'LastName':arr[1],'Alias':this.userAlias,'IsActive':this.userIsActive});
+        let userCreateResponse = await updateUser({'UserId':this.userId,'FirstName':arr[0],'LastName':arr[1],'Alias':this.userAlias,'IsActive':this.userIsActive,'Profile':this.profile});
     }
     // TODO: refactor it.  
     if(this.selectedQueues != undefined ){

@@ -6,6 +6,7 @@ import insertUserBulk from '@salesforce/apex/lightningUserPage.insertUserBulk';
 import userModal from 'c/userModalForm';
 //?import {ShowToastEvent} from "lightning/platformShowToastEvent";
 import { NavigationMixin } from 'lightning/navigation';
+import { RefreshEvent } from "lightning/refresh";
 
  const actions = [
      { label: 'View', name: 'View' },
@@ -349,7 +350,11 @@ onchangeMapping(e){
                 content : [event.detail.row.Id,false],
             });
             console.log('User result = ',result);
-            //! find optimal way to reload only apex
+            //!TODO: find optimal way to reload only apex
+            let loadUser = await searchUser({UserName : this.searchUserName});
+            this.existingUserList = loadUser.map(
+                (data) => ({...{'Name':data.Name,'Id':data.Id,'newID':'/'+data.Id,'Profile':data.Profile.Name,'IsActive':data.IsActive}})
+            )
             //window.location.reload()
             //this.clearTmpData();
         }
