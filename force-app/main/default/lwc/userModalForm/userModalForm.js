@@ -166,8 +166,8 @@ export default class UserModalForm extends LightningModal {
             console.log('Alias',e.target.value)
             this.userAlias = e.target.value;
             break;
-        case 'UserUserName':
-            console.log('UserUserName',e.target.value)
+        case 'UserName':
+            console.log('UserName',e.target.value)
             this.UserUserName = e.target.value;
             break;
         case 'Profile':
