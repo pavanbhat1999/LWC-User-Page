@@ -12,7 +12,7 @@
                 <lightning-input type="text" label="Alias" value={u.Alias} required disabled={disabledValue} onchange={handleFormChange}></lightning-input>
                 <lightning-combobox type="" label="Profile" value={u.Profile.Name} options={profileOptions} required disabled={disabledValue} onchange={handleFormChange}></lightning-combobox><br>
                 <!-- ! fix this not working  -->
-                <lightning-input type="text" label="Role" value={userRole}></lightning-input><br>
+                <lightning-combobox type="" label="Role" value={userRole} options={userRoleOptions}></lightning-combobox><br>
                 <div style="width:20%">
                     <lightning-input type="toggle"  label="isActive" checked={u.IsActive} disabled={disabledValue} onchange={handleFormChange}></lightning-input>
                 </div>

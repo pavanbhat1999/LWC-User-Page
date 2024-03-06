@@ -303,7 +303,7 @@ onchangeMapping(e){
         // get details and make a url out of it to navigate  
         let newres = [];
         for(var j=0;j<res.length;j++)
-        newres.push({'Name':res[j].Name,'Id':res[j].Id,'Alias':res[j].ALias,'Profile':res[j].Profile.Name,'newID':'/'+res[j].Id,'IsActive':res[j].IsActive});  
+        newres.push({'Name':res[j].Name,'Id':res[j].Id,'Alias':res[j].Alias,'Profile':res[j].Profile.Name,'newID':'/'+res[j].Id,'IsActive':res[j].IsActive});  
         this.existingUserList = newres;
         console.log('Export User Json stringify',JSON.stringify(newres));
     }
@@ -359,9 +359,13 @@ onchangeMapping(e){
             });
             console.log('User result = ',result);
             //!TODO: find optimal way to reload only apex
-            let loadUser = await searchUser({UserName : this.searchUserName});
+            let loadUser;
+            if(this.searchUserName)
+            loadUser = await searchUser({UserName : this.searchUserName});
+          else
+          loadUser = await searchUser({UserName : "Pavan"});
             this.existingUserList = loadUser.map(
-                (data) => ({...{'Name':data.Name,'Id':data.Id,'newID':'/'+data.Id,'Profile':data.Profile.Name,'IsActive':data.IsActive}})
+                (data) => ({...{'Name':data.Name,'Id':data.Id,'newID':'/'+data.Id,'Alias':data.Alias,'Profile':data.Profile.Name,'IsActive':data.IsActive}})
             )
             //window.location.reload()
             //this.clearTmpData();

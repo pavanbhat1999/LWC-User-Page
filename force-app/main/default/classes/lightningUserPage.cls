@@ -102,6 +102,14 @@ public class lightningUserPage {
             List<Profile> A = [SELECT Id,Name FROM Profile];
             return A;
         }
+        // Fetch All userRoles
+        @AuraEnabled
+        public static List<UserRole> getUserRoles(){
+          
+                List<UserRole> A = [select id,name from UserRole ];
+                return A;
+         
+        }
         // Insert User Single
         @AuraEnabled
     public static String insertUser(String firstName,String lastName,String UserName,String Email,String Alias,Boolean isActive,String Profile,String TimeZone){

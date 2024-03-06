@@ -57,6 +57,12 @@ private class lightningUserPageTest {
         List<Profile> B = lightningUserPage.getProfiles();
         System.assertEquals(A, B,'Profiles retrieved');
     }  
+    @isTest 
+    static void testgetUserRoles(){
+        List<UserRole> A = [SELECT Id,Name FROM UserRole];
+        List<UserRole> B = lightningUserPage.getUserRoles();
+        System.assertEquals(A, B,'UserRoles retrieved');
+    } 
     @isTest
     static void testgetAllPS(){
         List<PermissionSet> A = [SELECT Id, Name  FROM PermissionSet where NOT Name LIKE '%X00%' order by Name ];

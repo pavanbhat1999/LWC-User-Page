@@ -9,6 +9,7 @@ import getPublicGroupAll from '@salesforce/apex/lightningUserPage.getPublicGroup
 import updateUser from '@salesforce/apex/lightningUserPage.updateUser';
 import insertQueueForUser from '@salesforce/apex/lightningUserPage.insertQueueForUser';
 import getProfilesAll from '@salesforce/apex/lightningUserPage.getProfiles';
+import getUSerRolesAll from '@salesforce/apex/lightningUserPage.getUserRoles';
 import getAllPS from '@salesforce/apex/lightningUserPage.getAllPS';
 import getPS from '@salesforce/apex/lightningUserPage.getPS';
 import insertPermissionSetAssignment from '@salesforce/apex/lightningUserPage.insertPermissionSetAssignment';
@@ -114,6 +115,9 @@ export default class UserModalForm extends LightningModal {
         let profileNames = await getProfilesAll();
         profileNames = profileNames.map((data)=>({...{'label':data.Name,'value':data.Name}}))
         this.profileOptions = profileNames;
+        let userRoleNames = await getUSerRolesAll();
+        userRoleNames = userRoleNames.map((data)=>({...{'label':data.Name,'value':data.Name}}));
+        this.userRoleOptions = userRoleNames;
 
    }
    // Get initial data for Public Group
