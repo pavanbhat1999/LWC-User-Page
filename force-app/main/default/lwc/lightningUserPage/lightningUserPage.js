@@ -245,8 +245,9 @@ async handleUploadWithMapping(e){
   
   console.log('data = ',JSON.stringify(this.datacsv));
   try {
-    await insertUserBulk({'userJSON':JSON.stringify(this.datacsv)});
-    alert('Bulk user creation successful');
+    let result = await insertUserBulk({'userJSON':JSON.stringify(this.datacsv)});
+    console.log('Result ',result);
+    alert('Bulk user creation successful',result);
   } catch (error) {
     alert('Error:  Please Use Given Template and fill required details \n');
     alert(error.body.message)

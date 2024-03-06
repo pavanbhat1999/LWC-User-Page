@@ -33,7 +33,7 @@ export default class CreateUserFlow extends LightningModal {
     userIsActive = false;
     userProfile;
     userTimeZone;
-    userRole
+    userRole = '';
     profileOptions;
     userRoleOptions;
     //Queues

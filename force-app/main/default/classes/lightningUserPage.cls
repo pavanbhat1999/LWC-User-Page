@@ -116,7 +116,6 @@ public class lightningUserPage {
         try {
             
                 Profile myProfile = [SELECT Id FROM Profile WHERE Name = :Profile LIMIT 1];
-                UserRole myRole = [select id from UserRole where Name = :UserRole LIMIT 1];
                 User newuser = new User();
                 System.debug('user Alias'+ Alias);
                 newuser.Alias = alias;
@@ -128,14 +127,18 @@ public class lightningUserPage {
                 //newuser.Department = Department;
                 //newuser.FederationIdentifier = FederationIdentifier;
                 //newuser.IsActive = usr.IsActive;
+                //!fix this
                 newuser.IsActive = true;
                 //newuser.Profileid = ProfileId;
                 newuser.TimeZoneSidKey = TimeZone;
                 newUser.LocaleSidKey = 'en_US';
                 newUser.EmailEncodingKey = 'UTF-8';
                 newUser.ProfileId = myProfile.Id ;
-                if(myRole!=null)
-                newuser.UserRoleId = myRole.Id;
+                if(UserRole != ''){
+                    UserRole myRole = [select id from UserRole where Name = :UserRole LIMIT 1];
+                    if(myRole!=null)
+                    newuser.UserRoleId = myRole.Id;
+                }
                 newUser.LanguageLocaleKey = 'en_US';
                // newuser.CommunityNickname = CommunityNickname;
                 //insertUsersList.add(newuser);
@@ -164,6 +167,7 @@ public class lightningUserPage {
             try {
                 System.debug('Inserting the bulk user String =  '+userJSON);
                 List<customUser> listUsers = (List<customUser>) JSON.deserialize(userJSON, List<customUser>.class);
+                System.debug('Converted User List  '+listUsers);
                 List<User> insertUsersList = new List<User>();
                 
                 for(customUser usr:listUsers){
@@ -214,7 +218,7 @@ public class lightningUserPage {
                 }
                //System.debug('User List'+ insertUsersList);
                //insert(insertUsersList);
-               return 'usercreation Successfull';
+               return 'process ran';
             } catch (Exception e) {
                 throw new AuraHandledException(e.getMessage());
                 
