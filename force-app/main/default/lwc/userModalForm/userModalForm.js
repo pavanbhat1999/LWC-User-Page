@@ -45,7 +45,9 @@ export default class UserModalForm extends LightningModal {
     userAlias;
     userIsActive;
     profile;
+    userRole;
     profileOptions;
+    userRoleOptions;
     classicUserPageURL;
     async connectedCallback(){
         //1 :  Get Data from Parent Item
@@ -63,7 +65,9 @@ export default class UserModalForm extends LightningModal {
         this.userAlias = this.userDetails[0].Alias;
         this.userIsActive = this.userDetails[0].IsActive;
         this.profile = this.userDetails[0].Profile.Name;
-        console.log('alias',this.userAlias);
+        if(this.userDetails[0].UserRoleId);
+        this.userRole = this.userDetails[0].UserRole.Name;
+        console.log('Role ',this.userRole);
         //-------------------------------------------------------------------------
         //3:  get all the queues available
         let allQueues = await getQueuesAll();
