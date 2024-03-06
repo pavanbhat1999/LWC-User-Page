@@ -63,7 +63,7 @@ export default class UserModalForm extends LightningModal {
         this.userAlias = this.userDetails[0].Alias;
         this.userIsActive = this.userDetails[0].IsActive;
         this.profile = this.userDetails[0].Profile.Name;
-        console.log('alias',this.userAlias)
+        console.log('alias',this.userAlias);
         //-------------------------------------------------------------------------
         //3:  get all the queues available
         let allQueues = await getQueuesAll();
