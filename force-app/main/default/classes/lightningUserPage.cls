@@ -112,10 +112,11 @@ public class lightningUserPage {
         }
         // Insert User Single
         @AuraEnabled
-    public static String insertUser(String firstName,String lastName,String UserName,String Email,String Alias,Boolean isActive,String Profile,String TimeZone){
+    public static String insertUser(String firstName,String lastName,String UserName,String Email,String Alias,Boolean isActive,String Profile,String TimeZone,String UserRole){
         try {
             
                 Profile myProfile = [SELECT Id FROM Profile WHERE Name = :Profile LIMIT 1];
+                UserRole myRole = [select id from UserRole where Name = :UserRole LIMIT 1];
                 User newuser = new User();
                 System.debug('user Alias'+ Alias);
                 newuser.Alias = alias;
@@ -133,6 +134,8 @@ public class lightningUserPage {
                 newUser.LocaleSidKey = 'en_US';
                 newUser.EmailEncodingKey = 'UTF-8';
                 newUser.ProfileId = myProfile.Id ;
+                if(myRole!=null)
+                newuser.UserRoleId = myRole.Id;
                 newUser.LanguageLocaleKey = 'en_US';
                // newuser.CommunityNickname = CommunityNickname;
                 //insertUsersList.add(newuser);

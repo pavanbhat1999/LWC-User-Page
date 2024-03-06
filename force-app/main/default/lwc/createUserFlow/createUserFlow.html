@@ -13,8 +13,7 @@
                 <lightning-input type="text" label="Alias"      required  onchange={handleFormChange}></lightning-input>
                 <lightning-combobox type="" label="Profile"     required  onchange={handleFormChange} options={profileOptions}></lightning-combobox><br>
                 <lightning-combobox type="" label="Time Zone"   required  onchange={handleFormChange} options={timeZoneOptions}></lightning-combobox><br>
-                <!-- ! fix this not working  -->
-                <!-- <lightning-input type="text" label="Role" value={u.userrole.name} required></lightning-input><br> -->
+                <lightning-combobox type="" label="Role" value={userRole} options={userRoleOptions} disabled={disabledValue} onchange={handleFormChange}></lightning-combobox><br>
                 <div style="width:20%">
                     <lightning-input type="toggle"  label="isActive" onchange={handleFormChange}></lightning-input>
                 </div>

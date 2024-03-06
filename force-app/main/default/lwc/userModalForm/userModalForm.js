@@ -9,7 +9,7 @@ import getPublicGroupAll from '@salesforce/apex/lightningUserPage.getPublicGroup
 import updateUser from '@salesforce/apex/lightningUserPage.updateUser';
 import insertQueueForUser from '@salesforce/apex/lightningUserPage.insertQueueForUser';
 import getProfilesAll from '@salesforce/apex/lightningUserPage.getProfiles';
-import getUSerRolesAll from '@salesforce/apex/lightningUserPage.getUserRoles';
+import getUserRolesAll from '@salesforce/apex/lightningUserPage.getUserRoles';
 import getAllPS from '@salesforce/apex/lightningUserPage.getAllPS';
 import getPS from '@salesforce/apex/lightningUserPage.getPS';
 import insertPermissionSetAssignment from '@salesforce/apex/lightningUserPage.insertPermissionSetAssignment';
@@ -115,7 +115,7 @@ export default class UserModalForm extends LightningModal {
         let profileNames = await getProfilesAll();
         profileNames = profileNames.map((data)=>({...{'label':data.Name,'value':data.Name}}))
         this.profileOptions = profileNames;
-        let userRoleNames = await getUSerRolesAll();
+        let userRoleNames = await getUserRolesAll();
         userRoleNames = userRoleNames.map((data)=>({...{'label':data.Name,'value':data.Name}}));
         this.userRoleOptions = userRoleNames;
 
@@ -168,6 +168,10 @@ export default class UserModalForm extends LightningModal {
             console.log('Profile',e.target.value)
             this.profile = e.target.value;
             break;
+        case 'Role':
+            console.log('Role',e.target.value)
+            this.userRole = e.target.value;
+            break;
         case 'isActive':
             console.log('is active',e.target.checked);
             this.userIsActive = e.target.checked;
@@ -194,7 +198,7 @@ export default class UserModalForm extends LightningModal {
         console.log('alias' , this.userAlias);
         console.log('Active',this.userIsActive);
         //! remove after testing
-        let userCreateResponse = await updateUser({'UserId':this.userId,'FirstName':arr[0],'LastName':arr[1],'Alias':this.userAlias,'IsActive':this.userIsActive,'Profile':this.profile});
+        let userCreateResponse = await updateUser({'UserId':this.userId,'FirstName':arr[0],'LastName':arr[1],'Alias':this.userAlias,'IsActive':this.userIsActive,'Profile':this.profile,'UserRole':this.userRole});
     }
     // TODO: refactor it.  
     if(this.selectedQueues != undefined ){

@@ -1,6 +1,7 @@
 import { api, wire } from 'lwc';
 import LightningModal from 'lightning/modal';
 import getProfilesAll from '@salesforce/apex/lightningUserPage.getProfiles';
+import getUserRolesAll from '@salesforce/apex/lightningUserPage.getUserRoles';
 import { getPicklistValues } from 'lightning/uiObjectInfoApi';
 import TIMEZONE_FIELD from '@salesforce/schema/User.TimeZoneSidKey';
 import createUser from '@salesforce/apex/lightningUserPage.insertUser'
@@ -32,7 +33,9 @@ export default class CreateUserFlow extends LightningModal {
     userIsActive = false;
     userProfile;
     userTimeZone;
+    userRole
     profileOptions;
+    userRoleOptions;
     //Queues
     selectedQueues;
     existingQueues;
@@ -53,7 +56,10 @@ export default class CreateUserFlow extends LightningModal {
     async connectedCallback() {
         // Get All Profiles and use it in options
         const profileNames = await getProfilesAll();
-        this.profileOptions = profileNames.map((data) => ({ ...{ 'label': data.Name, 'value': data.Name } }))
+        this.profileOptions = profileNames.map((data) => ({ ...{ 'label': data.Name, 'value': data.Name } }));
+        let userRoleNames = await getUserRolesAll();
+        userRoleNames = userRoleNames.map((data)=>({...{'label':data.Name,'value':data.Name}}));
+        this.userRoleOptions = userRoleNames;
         // Get timezone values from wire method
         console.log(this.timeZoneValues);
         this.timeZoneOptions = this.timeZoneValues.data.values.map(option => ({ label: option.label, value: option.value }));
@@ -134,6 +140,10 @@ export default class CreateUserFlow extends LightningModal {
                 console.log('Profile', e.target.value)
                 this.userProfile = e.target.value;
                 break;
+            case 'Role':
+                console.log('Role',e.target.value)
+                this.userRole = e.target.value;
+                break;
             case 'Time Zone':
                 console.log('Time Zone', e.target.value)
                 this.userTimeZone = e.target.value;
@@ -159,7 +169,7 @@ export default class CreateUserFlow extends LightningModal {
         console.log("🚀 ~ this.userTimeZone:", this.userTimeZone);
        
         try {
-            let useridACK = await createUser({'Alias':this.userAlias,'Email':this.userEmail,'firstName':this.userFirstName,'UserName':this.userUserName,'lastName':this.userLastName,'Profile':this.userProfile,'isActive':this.userIsActive,'TimeZone':this.userTimeZone});
+            let useridACK = await createUser({'Alias':this.userAlias,'Email':this.userEmail,'firstName':this.userFirstName,'UserName':this.userUserName,'lastName':this.userLastName,'Profile':this.userProfile,'isActive':this.userIsActive,'TimeZone':this.userTimeZone,'UserRole':this.userRole});
             console.log("🚀 ~ useridACK:", useridACK);
             if(useridACK){
                 if (this.selectedQueues != undefined) {
