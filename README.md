@@ -35,6 +35,10 @@ Welcome to the LWC User Page project, a redesign of the user page in the Lightni
 
 ## Installation and Usage
 
+To Install directly to your hands on org just click below line 
+
+[Direct Link](https://login.salesforce.com/packaging/installPackage.apexp?p0=04t5i000000qTRJ)
+
 To install and use the LWC User Page:
 
 1. Clone the repository to your local machine using Git:
