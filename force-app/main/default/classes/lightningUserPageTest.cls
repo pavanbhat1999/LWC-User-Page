@@ -183,7 +183,7 @@ private class lightningUserPageTest {
         insert testUser;
 
         // Call the method to be tested
-        lightningUserPage.updateUser(testUser.Id, 'UpdatedFirstName', 'UpdatedLastName', 'Up', false);
+        lightningUserPage.updateUser(testUser.Id, 'UpdatedFirstName', 'UpdatedLastName', 'Up', false,'System Administrator');
 
         // Retrieve the updated user
         User updatedUser = [SELECT Id, FirstName, LastName, Alias, IsActive FROM User WHERE Id = :testUser.Id];
