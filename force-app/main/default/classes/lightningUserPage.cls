@@ -41,13 +41,13 @@ public class lightningUserPage {
         public static List<User> searchUser(String UserName)
         {
             UserName = '%' + UserName + '%';
-            List<User> usr = [select name,id,alias,Profile.name,UserRole.name,Country,isactive from User where name LIKE :UserName or alias LIKE :UserName order by name limit 50];
+            List<User> usr = [select name,id,alias,username,Profile.name,UserRole.name,Country,isactive from User where name LIKE :UserName or alias LIKE :UserName order by createddate limit 50];
             return usr;
         }
         @AuraEnabled
         public static List<User> getUserDetail(String UserId)
         {
-            List<User> usr = [select name,id,alias,email,profile.name,userrole.name,Country,IsActive from User where id=:UserId];
+            List<User> usr = [select name,id,alias,username,email,profile.name,userrole.name,Country,IsActive from User where id=:UserId order by createddate desc];
             return usr;
         }
         // Getting Queue membership of individual user

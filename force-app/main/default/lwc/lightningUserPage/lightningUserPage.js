@@ -101,7 +101,7 @@ export default class UserAutomationCustom extends NavigationMixin(LightningEleme
     async initUser(){
         let loadUser = await searchUser({UserName : 'Pavan'});
         this.existingUserList = loadUser.map(
-            (data) => ({...{'Name':data.Name,'Id':data.Id,'newID':'/'+data.Id,'Alias':data.Alias,'Profile':data.Profile.Name,'IsActive':data.IsActive}})
+            (data) => ({...{'Name':data.Name,'Id':data.Id,'newID':'/'+data.Id,'UserName':data.UserName,'Alias':data.Alias,'Profile':data.Profile.Name,'IsActive':data.IsActive}})
         )       
     }
     // clearing the temporary data 
@@ -366,7 +366,7 @@ onchangeMapping(e){
           else
           loadUser = await searchUser({UserName : "Pavan"});
             this.existingUserList = loadUser.map(
-                (data) => ({...{'Name':data.Name,'Id':data.Id,'newID':'/'+data.Id,'Alias':data.Alias,'Profile':data.Profile.Name,'IsActive':data.IsActive}})
+                (data) => ({...{'Name':data.Name,'Id':data.Id,'newID':'/'+data.Id,'UserName':data.UserName,'Alias':data.Alias,'Profile':data.Profile.Name,'IsActive':data.IsActive}})
             )
             //window.location.reload()
             //this.clearTmpData();
