@@ -66,7 +66,7 @@ export default class UserModalForm extends LightningModal {
         this.userAlias = this.userDetails[0].Alias;
         this.userIsActive = this.userDetails[0].IsActive;
         this.profile = this.userDetails[0].Profile.Name;
-        if(this.userDetails[0].UserRoleId);
+        if(this.userDetails[0].UserRoleId)
         this.userRole = this.userDetails[0].UserRole.Name;
         console.log('Role ',this.userRole);
         //-------------------------------------------------------------------------
