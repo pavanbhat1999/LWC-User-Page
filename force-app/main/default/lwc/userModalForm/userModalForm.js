@@ -43,6 +43,7 @@ export default class UserModalForm extends LightningModal {
     // User form fields 
     formChanged=false;
     userName=''; //!not tested
+    UserUserName;
     userAlias;
     userIsActive;
     profile;
@@ -63,12 +64,13 @@ export default class UserModalForm extends LightningModal {
         console.log('Username = ',JSON.stringify(this.userDetails));
         //TODO: initialize all user variables
         this.userName = this.userDetails[0].Name;
+        this.UserUserName = this.userDetails[0].Username;
         this.userAlias = this.userDetails[0].Alias;
         this.userIsActive = this.userDetails[0].IsActive;
         this.profile = this.userDetails[0].Profile.Name;
         if(this.userDetails[0].UserRoleId)
         this.userRole = this.userDetails[0].UserRole.Name;
-        console.log('Role ',this.userRole);
+        console.log('User Name',this.UserUserName);
         //-------------------------------------------------------------------------
         //3:  get all the queues available
         let allQueues = await getQueuesAll();
@@ -164,6 +166,10 @@ export default class UserModalForm extends LightningModal {
             console.log('Alias',e.target.value)
             this.userAlias = e.target.value;
             break;
+        case 'UserUserName':
+            console.log('UserUserName',e.target.value)
+            this.UserUserName = e.target.value;
+            break;
         case 'Profile':
             console.log('Profile',e.target.value)
             this.profile = e.target.value;
@@ -185,22 +191,16 @@ export default class UserModalForm extends LightningModal {
    // onclick - on save button click update queue assignment
    async handleSave(e){
     console.log('Save clicked and Value ',this.userName);
-    // TODO: remove this after testing
-    // if(this.selectedQueues == undefined){
-    //     console.log('Queues not changed ');
-    //     return;
-    // }
-    //TODO: Get all field values and update record using apex
-    //!FIXME: check if something changed in form and then perform this
+
     if(this.formChanged){
         let arr = this.userName.split(/ (.*)/);
         console.log('split ',JSON.stringify(arr));
         console.log('alias' , this.userAlias);
         console.log('Active',this.userIsActive);
-        //! remove after testing
+        //! remove after testing TODO:add username update
         let userCreateResponse = await updateUser({'UserId':this.userId,'FirstName':arr[0],'LastName':arr[1],'Alias':this.userAlias,'IsActive':this.userIsActive,'Profile':this.profile,'UserRole':this.userRole});
     }
-    // TODO: refactor it.  
+   
     if(this.selectedQueues != undefined ){
     let a = this.selectedQueues; 
     console.log('selected Queues',JSON.stringify(a))
