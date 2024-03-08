@@ -6,7 +6,6 @@ import insertUserBulk from '@salesforce/apex/lightningUserPage.insertUserBulk';
 import userModal from 'c/userModalForm';
 //?import {ShowToastEvent} from "lightning/platformShowToastEvent";
 import { NavigationMixin } from 'lightning/navigation';
-import { RefreshEvent } from "lightning/refresh";
 
  const actions = [
      { label: 'View', name: 'View' },
@@ -111,18 +110,10 @@ export default class UserAutomationCustom extends NavigationMixin(LightningEleme
         this.values.length = 0;
         this.options.length = 0;
     }
-    //* Currently working on it
     // Download user template
     downloadTemplate(event){
       console.log('Download Template Clicked');
       console.log(USER_TEMPLATE);
-      
-      // event.preventDefault();
-      // const link = document.createElement('a');
-      // link.href = window.URL.createObjectURL(USER_TEMPLATE);
-      // link.download = 'data.csv';
-      // link.click();
-
     }
     // File upload handler
     handleFileUpload(event) {
@@ -130,7 +121,6 @@ export default class UserAutomationCustom extends NavigationMixin(LightningEleme
     
         if (files.length > 0) {
           const file = files[0];
-          
           // start reading the uploaded csv file
           this.read(file);
         }
@@ -138,7 +128,6 @@ export default class UserAutomationCustom extends NavigationMixin(LightningEleme
       async read(file) {
         try {
           const result = await this.load(file);
-          
           // execute the logic for parsing the uploaded csv file
           this.parse(result);
         } catch (e) {
@@ -162,17 +151,12 @@ export default class UserAutomationCustom extends NavigationMixin(LightningEleme
   // parse the csv file and treat each line as one item of an array
   this.allCSVData = csv.split(/\r\n|\n/);
   console.log('All csv Data Initial = ',JSON.stringify(this.allCSVData) )
-  
   //parse the first line containing the csv column headers
   const headers = await this.allCSVData[0].split(',');
   console.log('headers',JSON.stringify(headers))
   this.headers = headers;
   this.headersOptionsFromFile = await this.headers.map((data)=>({...{'label':data,'value':data}}));
   console.log('options headers',JSON.stringify(this.headersOptionsFromFile));
-  
-  //! remove after migration to another function
-  // const data = [];
-  
   // //? why -1 is required
   // lines.forEach((line, i) => {
   //   if (i === 0) return;

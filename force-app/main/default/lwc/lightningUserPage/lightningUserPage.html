@@ -45,10 +45,12 @@ Created Date - 25-02-2023 -->
          
             <!-- ?END Working on mapping -->
             <template if:true={headers}>
-                <p>File Uploaded</p>
+                <br>
+                <p>File Successfully Uploaded</p>
                 <lightning-button variant="brand" label="Submit" title="Primary action"  class="slds-m-left_x-small" onclick={handleUploadWithMapping}></lightning-button>
             </template>
             
+            <br><br>
             <lightning-input type="search" label="Search User"  field-level-help="You can use Name and Alias for searching" value={searchUserName} onchange={changeSearchUserName} onkeypress={handleEnter}></lightning-input> <br/>
             <lightning-button variant="brand" label="Search" title="Primary action" onclick={handleSubmitUser} class="slds-m-left_x-small"></lightning-button>
             <lightning-button variant="brand" label="Export" title="Primary action" onclick={handleUserExport} class="slds-m-left_x-small"></lightning-button>
