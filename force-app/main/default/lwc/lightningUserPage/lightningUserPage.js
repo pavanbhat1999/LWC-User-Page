@@ -85,7 +85,7 @@ export default class UserAutomationCustom extends NavigationMixin(LightningEleme
     datacsv; //uploading data
     headers; //headers extracted from file
     mappingHeaders={};
-    //*NOTE: can modify to add all fields which can be imported 
+    //FIXME: Deprecated - can modify to add all fields which can be imported 
     // ? can use a custom label here to make it easy for the admins
     headersUserObject = ["Alias","FirstName","LastName","Username","Email","Country","Department","ProfileId","TimeZoneSidKey","LocaleSidKey","EmailEncodingKey","LanguageLocalKey","CommunityNickname"];
     headersOptionsFromFile; // options object for lighitng-combobox

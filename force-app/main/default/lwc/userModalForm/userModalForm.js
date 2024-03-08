@@ -62,7 +62,7 @@ export default class UserModalForm extends LightningModal {
         //2 : Get User details
         this.userDetails = await getUserDetail({'UserId':this.userId})
         console.log('Username = ',JSON.stringify(this.userDetails));
-        //TODO: initialize all user variables
+        //NOTE: Add if some other user variable required --------------------------
         this.userName = this.userDetails[0].Name;
         this.UserUserName = this.userDetails[0].Username;
         this.userAlias = this.userDetails[0].Alias;
@@ -197,8 +197,7 @@ export default class UserModalForm extends LightningModal {
         console.log('split ',JSON.stringify(arr));
         console.log('alias' , this.userAlias);
         console.log('Active',this.userIsActive);
-        //! remove after testing TODO:add username update
-        let userCreateResponse = await updateUser({'UserId':this.userId,'FirstName':arr[0],'LastName':arr[1],'Alias':this.userAlias,'IsActive':this.userIsActive,'Profile':this.profile,'UserRole':this.userRole});
+        let userCreateResponse = await updateUser({'UserId':this.userId,'FirstName':arr[0],'LastName':arr[1],'Alias':this.userAlias,'IsActive':this.userIsActive,'Profile':this.profile,'UserRole':this.userRole,'Username':this.UserUserName});
     }
    
     if(this.selectedQueues != undefined ){

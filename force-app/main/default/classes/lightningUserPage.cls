@@ -227,13 +227,14 @@ public class lightningUserPage {
         // Update the  User
        
         @AuraEnabled
-        public static void updateUser(String UserId,String FirstName,String LastName,String Alias,Boolean IsActive,String Profile,String UserRole){
+        public static void updateUser(String UserId,String FirstName,String LastName,String Alias,Boolean IsActive,String Profile,String UserRole,String Username){
             try {
                 User usr = [Select Id,FirstName,LastName from User where Id=:UserId];
                 List<Profile> prof = [Select Id from profile where Name=:Profile limit 1];
                 List<UserRole> usrRole = [Select Id from UserRole where Name=:UserRole limit 1];
                 usr.FirstName = FirstName;
                 usr.LastName = LastName;
+                usr.Username = Username;
                 usr.Alias = Alias;
                 usr.IsActive = IsActive;
                 usr.profileid = prof[0].id;
