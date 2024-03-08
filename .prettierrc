@@ -12,6 +12,10 @@
     {
       "files": "*.{cmp,page,component}",
       "options": { "parser": "html" }
+    },
+    {
+      "files": "*.{js}",
+      "options": { "parser": "js" }
     }
   ]
 }

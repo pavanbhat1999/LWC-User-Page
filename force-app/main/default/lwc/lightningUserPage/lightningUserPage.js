@@ -7,69 +7,67 @@ import userModal from 'c/userModalForm';
 //?import {ShowToastEvent} from "lightning/platformShowToastEvent";
 import { NavigationMixin } from 'lightning/navigation';
 
- const actions = [
-     { label: 'View', name: 'View' },
-     { label: 'Edit', name: 'Edit' },
- ];
+const actions = [
+  { label: 'View', name: 'View' },
+  { label: 'Edit', name: 'Edit' },
+];
 const columns = [
-    { 
-        label: 'Name', 
-        fieldName: 'newID', 
-        type: 'url',
-        typeAttributes: { 
-            label: { fieldName: 'Name' },
-            } 
-    },
-    {
-      label: 'Alias',
-      fieldName: 'Alias',
-      type: 'text',
+  { 
+      label: 'Name', 
+      fieldName: 'newID', 
+      type: 'url',
       typeAttributes: { 
-        label: { fieldName: 'Alias' },
-        } 
-    },
-    {
-      label: 'Profile',
-      fieldName: 'Profile',
-      type: 'text',
-      typeAttributes: { 
-        label: { fieldName: 'Profile' },
-        } 
-    },
-    {
-      label: 'Active',
-      fieldName: 'IsActive',
-      type: 'boolean',
-      typeAttributes: { 
-        label: { fieldName: 'IsActive' },
-        } 
-    },
-    {
-        type: 'button-icon',
-        label: 'View',
-        // initialWidth: 75,
-        typeAttributes: {
-            iconName: 'action:preview',
-            title: 'Preview',
-            variant: 'brand',
-            alternativeText: 'View',
-            rowActions: actions
-        }
-    },
-    {
-        type: 'button-icon',
-        label: 'Edit',
-        // initialWidth: 75,
-        typeAttributes: {
-            iconName: 'action:edit',
-            title: 'Edit',
-            variant: 'brand',
-            alternativeText: 'Edit',
-            rowActions: actions
-        }
-    },
-
- 
+          label: { fieldName: 'Name' },
+          } 
+  },
+  {
+    label: 'Alias',
+    fieldName: 'Alias',
+    type: 'text',
+    typeAttributes: { 
+      label: { fieldName: 'Alias' },
+      } 
+  },
+  {
+    label: 'Profile',
+    fieldName: 'Profile',
+    type: 'text',
+    typeAttributes: { 
+      label: { fieldName: 'Profile' },
+      } 
+  },
+  {
+    label: 'Active',
+    fieldName: 'IsActive',
+    type: 'boolean',
+    typeAttributes: { 
+      label: { fieldName: 'IsActive' },
+      } 
+  },
+  {
+      type: 'button-icon',
+      label: 'View',
+      // initialWidth: 75,
+      typeAttributes: {
+          iconName: 'action:preview',
+          title: 'Preview',
+          variant: 'brand',
+          alternativeText: 'View',
+          rowActions: actions
+      }
+  },
+  {
+      type: 'button-icon',
+      label: 'Edit',
+      // initialWidth: 75,
+      typeAttributes: {
+          iconName: 'action:edit',
+          title: 'Edit',
+          variant: 'brand',
+          alternativeText: 'Edit',
+          rowActions: actions
+      }
+  },
 ];
 export default class UserAutomationCustom extends NavigationMixin(LightningElement) {
     searchUserName;
@@ -124,8 +122,8 @@ export default class UserAutomationCustom extends NavigationMixin(LightningEleme
           // start reading the uploaded csv file
           this.read(file);
         }
-      }
-      async read(file) {
+    }
+    async read(file) {
         try {
           const result = await this.load(file);
           // execute the logic for parsing the uploaded csv file
@@ -133,8 +131,8 @@ export default class UserAutomationCustom extends NavigationMixin(LightningEleme
         } catch (e) {
           this.error = e;
         }
-      }
-      async load(file) {
+    }
+    async load(file) {
         return new Promise((resolve, reject) => {
           const reader = new FileReader();
     
@@ -146,8 +144,8 @@ export default class UserAutomationCustom extends NavigationMixin(LightningEleme
           };
           reader.readAsText(file);
         });
-      }
-      async parse(csv) {
+    }
+    async parse(csv) {
   // parse the csv file and treat each line as one item of an array
   this.allCSVData = csv.split(/\r\n|\n/);
   console.log('All csv Data Initial = ',JSON.stringify(this.allCSVData) )
