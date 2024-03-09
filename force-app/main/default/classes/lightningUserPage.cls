@@ -141,7 +141,7 @@ public class lightningUserPage {
                 }
                 newUser.LanguageLocaleKey = 'en_US';
                // newuser.CommunityNickname = CommunityNickname;
-                //insertUsersList.add(newuser);
+                //insertUsersMap.add(newuser);
             System.debug('New User = '+ newuser);
             Database.SaveResult sr =Database.insert(newuser);
             if (sr.isSuccess()) {
@@ -161,19 +161,24 @@ public class lightningUserPage {
             
         }
     }
-        // Insert User Bulk
+        // TODO:Insert User Bulk Optimize it
         @AuraEnabled
         public static String insertUserBulk(String userJSON){
             try {
                 System.debug('Inserting the bulk user String =  '+userJSON);
                 List<customUser> listUsers = (List<customUser>) JSON.deserialize(userJSON, List<customUser>.class);
                 System.debug('Converted User List  '+listUsers);
-                List<User> insertUsersList = new List<User>();
+                Map<User,List<String>> insertUsersMap = new Map<User,List<String>>();
+                // Store all profiles in a map to use in newUser
+                Map<String, Id> profileMap = new Map<String, Id>();
+                for (Profile p : [SELECT Id, Name FROM Profile]) {
+                    profileMap.put(p.Name, p.Id);
+                }
                 
                 for(customUser usr:listUsers){
                     User newuser = new User();
                     System.debug('user name'+ usr.Alias);
-                    if(usr.Alias == null) //!Added to handle empty row submission
+                    if(usr.Alias == null) //Added to handle empty row submission
                         break;
                     newuser.Alias = usr.alias;
                     newuser.FirstName = usr.FirstName;
@@ -190,35 +195,41 @@ public class lightningUserPage {
                     newuser.LanguageLocaleKey = usr.LanguageLocaleKey;
                     newuser.CommunityNickname = usr.CommunityNickname;
                     newuser.IsActive = false;
-                    String profileSearch = usr.ProfileId;
-                    Profile myProfile = [SELECT Id FROM Profile WHERE Name = :profileSearch LIMIT 1];
-                    //newuser.Profileid = ProfileId;
-                    //newuser.TimeZoneSidKey = TimeZone;
                     newUser.LocaleSidKey = 'en_US';
                     newUser.EmailEncodingKey = 'UTF-8';
                     newUser.LanguageLocaleKey = 'en_US';
-                    newUser.ProfileId = myProfile.Id ;
-                    //insertUsersList.add(newuser);
-                    Database.SaveResult sr = Database.insert(newuser, false);
-                    if (sr.isSuccess()) {
-                        // Retrieve the ID of the new record
-                        Id newRecordId = sr.getId();
-                        System.debug('New Record ID: ' + newRecordId);
-                        List<String> queues = usr.Groups.split(';');
-                        System.debug('Queues each = '+queues);
-                        Integer res = lightningUserPage.insertQueueForUser(queues,newRecordId);
-                    } else {
-                        // Handle the error if the insertion was not successful
-                        for (Database.Error error : sr.getErrors()) {
-                            System.debug('Error message: ' + error.getMessage());
-                        }
+                    if(profileMap.containsKey(usr.ProfileId)){
+                        newUser.ProfileId = profileMap.get(usr.ProfileId);
                     }
-                    System.debug('Groups = '+ usr.Groups);
+                    else{
+                        System.debug('Profile Not found');
+                    }
+                    //insertUsersMap.add(newuser);
+                    List<String> queues = usr.Groups.split(';');
+                    insertUsersMap.put(newUser,queues);
+                    // Database.SaveResult sr = Database.insert(newuser, false);
+                    // if (sr.isSuccess()) {
+                    //     // Retrieve the ID of the new record
+                    //     Id newRecordId = sr.getId();
+                    //     System.debug('New Record ID: ' + newRecordId);
+                    //     List<String> queues = usr.Groups.split(';');
+                    //     System.debug('Queues each = '+queues);
+                    //     Integer res = lightningUserPage.insertQueueForUser(queues,newRecordId);
+                    // } else {
+                    //     // Handle the error if the insertion was not successful
+                    //     for (Database.Error error : sr.getErrors()) {
+                    //         System.debug('Error message: ' + error.getMessage());
+                    //     }
+                    // }
+                    // System.debug('Groups = '+ usr.Groups);
     
                 }
-               //System.debug('User List'+ insertUsersList);
-               //insert(insertUsersList);
-               return 'process ran';
+                for(User u: insertUsersMap.keySet()){
+                    List<String> assignQueues = insertUsersMap.get(u);
+                    insert(u);
+                    Integer res = lightningUserPage.insertQueueForUser(assignQueues,u.Id);
+                }
+               return 'User creation process ran successfully';
             } catch (Exception e) {
                 throw new AuraHandledException(e.getMessage());
                 

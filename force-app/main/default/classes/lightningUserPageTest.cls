@@ -139,9 +139,10 @@ private class lightningUserPageTest {
         Boolean isActive = true;
         String profileId = 'System Administrator'; // Replace with a valid profile ID
         String timeZone = 'America/Los_Angeles';
+        String Role = '';
 
         // Call the method to be tested
-        String result = lightningUserPage.insertUser(firstName, lastName, username, email, alias, isActive, profileId, timeZone);
+        String result = lightningUserPage.insertUser(firstName, lastName, username, email, alias, isActive, profileId, timeZone,Role);
 
         // Assertion
         System.assertNotEquals('usercreation Successful', result, 'User should be successfully created');
@@ -160,7 +161,7 @@ private class lightningUserPageTest {
         Test.stopTest();
 
         // Assertion
-        System.assertEquals('usercreation Successfull', result, 'Bulk users should be successfully created');
+        System.assertEquals('User creation process ran successfully', result, 'Bulk users should be successfully created');
 
         // Verify that the users are inserted correctly
         List<User> insertedUsers = [SELECT Id, Alias, FirstName, LastName, Username, Email, Country, Department, FederationIdentifier, TimeZoneSidKey, LocaleSidKey, EmailEncodingKey, LanguageLocaleKey, CommunityNickname, IsActive, ProfileId FROM User where isactive=true and profile.name='System Administrator'];
@@ -189,7 +190,7 @@ private class lightningUserPageTest {
         insert testUser;
 
         // Call the method to be tested
-        lightningUserPage.updateUser(testUser.Id, 'UpdatedFirstName', 'UpdatedLastName', 'Up', false,'System Administrator');
+        lightningUserPage.updateUser(testUser.Id, 'UpdatedFirstName', 'UpdatedLastName', 'Up', false,'System Administrator','','Updatedusername@test12344.com');
 
         // Retrieve the updated user
         User updatedUser = [SELECT Id, FirstName, LastName, Alias, IsActive FROM User WHERE Id = :testUser.Id];

@@ -23,27 +23,7 @@ Created Date - 25-02-2023 -->
             onchange={handleFileUpload}
             >
             </lightning-input>
-            <!-- <br><br> -->
-            <!-- ?Working on mapping Retest Functionality-->
-            <!-- <template if:true={headers}>
-                <template for:each={headersUserObject} for:item="hu">
-                    <div class="slds-grid slds-gutters" key={hu}>
-                        <lightning-combobox
-                            name={hu}
-                            label={hu}
-                            options={headersOptionsFromFile}
-                            placeholder="Select Fields From File"
-                            onchange={onchangeMapping}
-                        >
-                    </lightning-combobox>
-                    </div>
-                </template>
-
-                <br>
-                <lightning-button variant="brand" label="Submit" title="Primary action"  class="slds-m-left_x-small" onclick={handleUploadWithMapping}></lightning-button>
-            </template> -->
-         
-            <!-- ?END Working on mapping -->
+            <!-- Handle upload with default mapping -->
             <template if:true={headers}>
                 <br>
                 <p>File Successfully Uploaded</p>
@@ -51,12 +31,12 @@ Created Date - 25-02-2023 -->
             </template>
             
             <br><br>
+            <!-- Handle Search User -->
             <lightning-input type="search" label="Search User"  field-level-help="You can use Name and Alias for searching" value={searchUserName} onchange={changeSearchUserName} onkeypress={handleEnter}></lightning-input> <br/>
             <lightning-button variant="brand" label="Search" title="Primary action" onclick={handleSubmitUser} class="slds-m-left_x-small"></lightning-button>
             <lightning-button variant="brand" label="Export" title="Primary action" onclick={handleUserExport} class="slds-m-left_x-small"></lightning-button>
 
         </div>
-
 
         <!-- Get the data of the searched user  -->
         <template if:true={existingUserList}>
