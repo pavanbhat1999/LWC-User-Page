@@ -256,17 +256,11 @@ public class lightningUserPage {
         @AuraEnabled
         public static Integer insertQueueForUser(List<String> QueueName,String UserId)
         {
-          
-    
             // * Inserting Queue Membership
             List<group> qids = [select Id from group where name in :QueueName];
             if(qids.isEmpty()){
                 return 0;
             }
-            //!remove afterwards List<Id> groupIds = new List<Id>();
-            // for (Group qid : qids) {
-            //     groupIds.add(qid.Id);
-            // }
             List<GroupMember> lstgm = new List<GroupMember>();
             for (group q : qids){
                 System.debug(q);
