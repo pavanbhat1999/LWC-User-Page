@@ -75,7 +75,6 @@ export default class UserModalForm extends LightningModal {
         //3:  get all the queues available
         let allQueues = await getQueuesAll();
         console.log('modal queues',allQueues);
-        // TODO: Unit Test
         let newallQueues = await this.convertToOptions(allQueues);
         console.log('new = ',JSON.stringify(newallQueues));
 
