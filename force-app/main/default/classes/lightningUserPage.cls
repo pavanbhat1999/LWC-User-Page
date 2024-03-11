@@ -161,7 +161,6 @@ public class lightningUserPage {
             
         }
     }
-        // TODO:Insert User Bulk Optimize it
         @AuraEnabled
         public static String insertUserBulk(String userJSON){
             try {
