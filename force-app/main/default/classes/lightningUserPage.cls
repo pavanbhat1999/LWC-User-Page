@@ -116,34 +116,34 @@ public class lightningUserPage {
         try {
             
                 Profile myProfile = [SELECT Id FROM Profile WHERE Name = :Profile LIMIT 1];
-                User newuser = new User();
+                User newUser = new User();
                 System.debug('user Alias'+ Alias);
-                newuser.Alias = alias;
-                newuser.FirstName = FirstName;
-                newuser.LastName = LastName;
-                newuser.Username = Username;
-                newuser.Email = Email;
-                //newuser.Country = Country;
-                //newuser.Department = Department;
-                //newuser.FederationIdentifier = FederationIdentifier;
-                //newuser.IsActive = usr.IsActive;
+                newUser.Alias = alias;
+                newUser.FirstName = FirstName;
+                newUser.LastName = LastName;
+                newUser.Username = Username;
+                newUser.Email = Email;
+                //newUser.Country = Country;
+                //newUser.Department = Department;
+                //newUser.FederationIdentifier = FederationIdentifier;
+                //newUser.IsActive = usr.IsActive;
                 //!fix this
-                newuser.IsActive = true;
-                //newuser.Profileid = ProfileId;
-                newuser.TimeZoneSidKey = TimeZone;
+                newUser.IsActive = true;
+                //newUser.Profileid = ProfileId;
+                newUser.TimeZoneSidKey = TimeZone;
                 newUser.LocaleSidKey = 'en_US';
                 newUser.EmailEncodingKey = 'UTF-8';
                 newUser.ProfileId = myProfile.Id ;
                 if(UserRole != ''){
                     UserRole myRole = [select id from UserRole where Name = :UserRole LIMIT 1];
                     if(myRole!=null)
-                    newuser.UserRoleId = myRole.Id;
+                    newUser.UserRoleId = myRole.Id;
                 }
                 newUser.LanguageLocaleKey = 'en_US';
-               // newuser.CommunityNickname = CommunityNickname;
-                //insertUsersMap.add(newuser);
-            System.debug('New User = '+ newuser);
-            Database.SaveResult sr =Database.insert(newuser);
+               // newUser.CommunityNickname = CommunityNickname;
+                //insertUsersMap.add(newUser);
+            System.debug('New User = '+ newUser);
+            Database.SaveResult sr =Database.insert(newUser);
             if (sr.isSuccess()) {
                 // Retrieve the ID of the new record
                 Id newRecordId = sr.getId();
@@ -168,7 +168,8 @@ public class lightningUserPage {
                 System.debug('Inserting the bulk user String =  '+userJSON);
                 List<customUser> listUsers = (List<customUser>) JSON.deserialize(userJSON, List<customUser>.class);
                 System.debug('Converted User List  '+listUsers);
-                Map<User,List<String>> insertUsersMap = new Map<User,List<String>>();
+                Map<String,List<String>> insertUsersMap = new Map<String,List<String>>();
+                List<User> insertUserList = new List<User>();
                 // Store all profiles in a map to use in newUser
                 Map<String, Id> profileMap = new Map<String, Id>();
                 for (Profile p : [SELECT Id, Name FROM Profile]) {
@@ -176,25 +177,25 @@ public class lightningUserPage {
                 }
                 
                 for(customUser usr:listUsers){
-                    User newuser = new User();
+                    User newUser = new User();
                     System.debug('user name'+ usr.Alias);
                     if(usr.Alias == null) //Added to handle empty row submission
                         break;
-                    newuser.Alias = usr.alias;
-                    newuser.FirstName = usr.FirstName;
-                    newuser.LastName = usr.LastName;
-                    newuser.Username = usr.Username;
-                    newuser.Email = usr.Email;
-                    newuser.Country = usr.Country;
-                    newuser.Department = usr.Department;
-                    newuser.FederationIdentifier = usr.FederationIdentifier;
-                    //newuser.IsActive = usr.IsActive;
-                    newuser.TimeZoneSidKey = usr.TimeZoneSidKey;
-                    newuser.LocaleSidKey = usr.LocaleSidKey;
-                    newuser.EmailEncodingKey = usr.EmailEncodingKey;
-                    newuser.LanguageLocaleKey = usr.LanguageLocaleKey;
-                    newuser.CommunityNickname = usr.CommunityNickname;
-                    newuser.IsActive = false;
+                    newUser.Alias = usr.alias;
+                    newUser.FirstName = usr.FirstName;
+                    newUser.LastName = usr.LastName;
+                    newUser.Username = usr.Username;
+                    newUser.Email = usr.Email;
+                    newUser.Country = usr.Country;
+                    newUser.Department = usr.Department;
+                    newUser.FederationIdentifier = usr.FederationIdentifier;
+                    //newUser.IsActive = usr.IsActive;
+                    newUser.TimeZoneSidKey = usr.TimeZoneSidKey;
+                    newUser.LocaleSidKey = usr.LocaleSidKey;
+                    newUser.EmailEncodingKey = usr.EmailEncodingKey;
+                    newUser.LanguageLocaleKey = usr.LanguageLocaleKey;
+                    newUser.CommunityNickname = usr.CommunityNickname;
+                    newUser.IsActive = false;
                     newUser.LocaleSidKey = 'en_US';
                     newUser.EmailEncodingKey = 'UTF-8';
                     newUser.LanguageLocaleKey = 'en_US';
@@ -204,31 +205,27 @@ public class lightningUserPage {
                     else{
                         System.debug('Profile Not found');
                     }
-                    //insertUsersMap.add(newuser);
+                    //insertUsersMap.add(newUser);
                     List<String> queues = usr.Groups.split(';');
-                    insertUsersMap.put(newUser,queues);
-                    // Database.SaveResult sr = Database.insert(newuser, false);
-                    // if (sr.isSuccess()) {
-                    //     // Retrieve the ID of the new record
-                    //     Id newRecordId = sr.getId();
-                    //     System.debug('New Record ID: ' + newRecordId);
-                    //     List<String> queues = usr.Groups.split(';');
-                    //     System.debug('Queues each = '+queues);
-                    //     Integer res = lightningUserPage.insertQueueForUser(queues,newRecordId);
-                    // } else {
-                    //     // Handle the error if the insertion was not successful
-                    //     for (Database.Error error : sr.getErrors()) {
-                    //         System.debug('Error message: ' + error.getMessage());
-                    //     }
-                    // }
-                    // System.debug('Groups = '+ usr.Groups);
-    
+                    insertUsersMap.put(newUser.Username,queues);
+                    insertUserList.add(newUser);
                 }
-                for(User u: insertUsersMap.keySet()){
-                    List<String> assignQueues = insertUsersMap.get(u);
-                    insert(u);
-                    Integer res = lightningUserPage.insertQueueForUser(assignQueues,u.Id);
+                System.debug('User to be insert'+ insertUserList);
+                Database.SaveResult[] sr = Database.insert(insertUserList, false);
+                System.debug(sr);
+                List<Id> successIds = new List<Id>();
+                for(Database.SaveResult srItem : sr){
+                    if(srItem.isSuccess())
+                    successIds.add(srItem.getId());
                 }
+                List<User> userforQueueChange = [select Id, username from User where Id IN :successIds];
+                for(User uq : userforQueueChange){
+                    String userName = uq.username;
+                    List<String> groups = insertUsersMap.get(uq.username);
+                    if(!groups.isEmpty())
+                    lightningUserPage.insertQueueForUser(groups, uq.id);
+                }
+                                
                return 'User creation process ran successfully';
             } catch (Exception e) {
                 throw new AuraHandledException(e.getMessage());
