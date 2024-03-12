@@ -65,7 +65,7 @@ private class lightningUserPageTest {
     } 
     @isTest
     static void testgetAllPS(){
-        List<PermissionSet> A = [SELECT Id, Name  FROM PermissionSet where NOT Name LIKE '%X00%' order by Name ];
+        List<PermissionSet> A = [SELECT Id, Name,IsOwnedByProfile,License.name,CreatedBy.name,IsCustom  FROM PermissionSet where (NOT Name LIKE '%X00%') and License.Name='Salesforce' and CreatedBy.name !=null and iscustom=true order by Name ];
         List<PermissionSet> B = lightningUserPage.getAllPS();
         System.assertEquals(A, B,'Profiles retrieved');
     }  
@@ -233,7 +233,7 @@ private class lightningUserPageTest {
 
         // Test method invocation
         Test.startTest();
-        Integer result = lightningUserPage.insertQueueForUser(testQueueNames, testUser.Id);
+        Integer result = lightningUserPage.insertQueueForUser(testQueueNames,null, testUser.Id);
         Test.stopTest();
 
         // Assertion
