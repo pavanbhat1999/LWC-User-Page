@@ -157,11 +157,11 @@ private class lightningUserPageTest {
 
         // Test method invocation
         Test.startTest();
-        String result = lightningUserPage.insertUserBulk(userJSON);
+        List<String> result = lightningUserPage.insertUserBulk(userJSON);
         Test.stopTest();
 
         // Assertion
-        System.assertEquals('User creation process ran successfully', result, 'Bulk users should be successfully created');
+        System.assertEquals(new List<String>{'Success'}, result, 'Bulk users should be successfully created');
 
         // Verify that the users are inserted correctly
         List<User> insertedUsers = [SELECT Id, Alias, FirstName, LastName, Username, Email, Country, Department, FederationIdentifier, TimeZoneSidKey, LocaleSidKey, EmailEncodingKey, LanguageLocaleKey, CommunityNickname, IsActive, ProfileId FROM User where isactive=true and profile.name='System Administrator'];

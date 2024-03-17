@@ -200,8 +200,7 @@ export default class UserAutomationCustom extends NavigationMixin(LightningEleme
       try {
         let result = await insertUserBulk({'userJSON':JSON.stringify(this.dataCSV)});
         console.log('Result ',result);
-        if(result)
-        alert('Bulk user creation successful',result);
+        alert(result);
       } catch (error) {
         alert('Error:  Please Use Given Template and fill required details \n');
         alert(error.body.message)

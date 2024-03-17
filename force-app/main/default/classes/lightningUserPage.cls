@@ -41,7 +41,7 @@ public class lightningUserPage {
         public static List<User> searchUser(String UserName)
         {
             UserName = '%' + UserName + '%';
-            List<User> usr = [select name,id,alias,username,Profile.name,UserRole.name,Country,isactive from User where (name LIKE :UserName or alias LIKE :UserName or Profile.name LIKE :Username) and Profile.name!=null order by createddate limit 50];
+            List<User> usr = [select name,id,alias,username,Profile.name,UserRole.name,Country,isactive from User where (name LIKE :UserName or alias LIKE :UserName or Profile.name LIKE :Username) and Profile.name!=null order by createddate desc limit 50];
             return usr;
         }
         @AuraEnabled
@@ -162,7 +162,7 @@ public class lightningUserPage {
         }
     }
         @AuraEnabled
-        public static String insertUserBulk(String userJSON){
+        public static List<String> insertUserBulk(String userJSON){
             try {
                 System.debug('Inserting the bulk user String =  '+userJSON);
                 List<customUser> listUsers = (List<customUser>) JSON.deserialize(userJSON, List<customUser>.class);
@@ -213,9 +213,23 @@ public class lightningUserPage {
                 Database.SaveResult[] sr = Database.insert(insertUserList, false);
                 System.debug(sr);
                 List<Id> successIds = new List<Id>();
+                Integer RowCount = 0;
                 for(Database.SaveResult srItem : sr){
-                    if(srItem.isSuccess())
+                    RowCount = RowCount + 1;
+                    if(srItem.isSuccess()){
                     successIds.add(srItem.getId());
+                    }
+                    else {
+                        // Operation failed, so get all errors   
+                        List<String> errors = new List<String>();             
+                        for(Database.Error err : srItem.getErrors()) {
+                            System.debug('The following error has occurred.');                    
+                            System.debug(err.getStatusCode() + ': ' + err.getMessage());
+                            System.debug('Account fields that affected this error: ' + err.getFields());
+                            errors.add('Error in Row :  ' + RowCount + ' ' + err.getStatusCode()+' '+err.getMessage()+' '+err.getFields());
+                        }
+                        return errors;
+                    }  
                 }
                 List<User> userforQueueChange = [select Id, username from User where Id IN :successIds];
                 for(User uq : userforQueueChange){
@@ -225,10 +239,9 @@ public class lightningUserPage {
                     lightningUserPage.insertQueueForUser(groups,null, uq.id);
                 }
                                 
-               return 'User creation process ran successfully';
+                return new List<String>{'Success'};
             } catch (Exception e) {
                 throw new AuraHandledException(e.getMessage());
-                
             }
         }
         // Update the  User
