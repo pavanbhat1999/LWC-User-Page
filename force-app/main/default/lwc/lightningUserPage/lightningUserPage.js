@@ -291,7 +291,7 @@ export default class UserAutomationCustom extends NavigationMixin(LightningEleme
                 content : [event.detail.row.Id,false],
             });
             console.log('User result = ',result);
-            //!TODO: find optimal way to reload only apex
+            //TODO: find optimal way to reload only apex
             let loadUser;
             if(this.searchUserName)
             loadUser = await searchUser({UserName : this.searchUserName});
