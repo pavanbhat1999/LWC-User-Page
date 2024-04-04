@@ -189,9 +189,9 @@ export default class CreateUserFlow extends LightningModal {
                     await insertPermissionSetAssignment({'AssigneeId':useridACK,'insertPermissionSet':permissionSets ,'deletePermissionSet':null});
                 }
                 await LightningAlert.open({
-                    message: '😊 User Details updated Successfully',
+                    message: '✅ User Details updated Successfully',
                     theme: 'Success', // a green theme intended for success status
-                    label: '🎊🎉 Success 🎉🎊', // this is the header text
+                    label: '🎉 Success ', // this is the header text
                 });
                 this.close(this.userFirstName);
             }

@@ -251,9 +251,9 @@ export default class UserModalForm extends LightningModal {
     // );
         // ? should use toast message or alert message
     await LightningAlert.open({
-        message: '😊 User Details updated Successfully',
+        message: '✅ User Details updated Successfully',
         theme: 'Success', // a green theme intended for success status
-        label: '🎊🎉 Success 🎉🎊', // this is the header text
+        label: '🎉 Success ', // this is the header text
     });
     this.close(this.userName);
    }
