@@ -1,38 +1,4 @@
 
-# LWC-User-Page
-
-## Overview
-
-Welcome to the LWC User Page project, a redesign of the user page in the Lightning Experience with additional features aimed at enhancing user experience and customization options for Salesforce Admins/Developers. This project utilizes Lightning Web Components (LWC) to provide a more intuitive and efficient interface for day-to-day activities within Salesforce.
-
-## Features 
-
-1. User Page in lightning experience
-
-![main-page](/pics/page.png)
-
-2. Create user and modify user 
-
-![main-page](/pics/create-user.png)
-
-3. Modify public groups and queues in single screen 
-
-![main-page](/pics/queues.png)
-
-4. Search and Export users using different fields
-
-![main-page](/pics/search.png)
-
-5. Bulk user data load with groups 
-
-![main-page](/pics/bulk.png)
-
-6. Quick switch to classic for legacy features
-
-![main-page](/pics/classic.png)
-
-
-
 ## Installation and Usage
 
 To Install directly to your hands on org just click below line 
@@ -43,7 +9,7 @@ To install and use the LWC User Page:
 
 1. Clone the repository to your local machine using Git:
 
-`git clone https://github.com/pavanbhat1999/LWC-User-Page`
+`git clone https://github.com/pavanbhat1999/LWC-User-Page/tree/limit-monitoring`
 
 2. Start Working on the project
 
