@@ -9,11 +9,12 @@ To install and use the LWC User Page:
 
 1. Clone the repository to your local machine using Git:
 
-`git clone https://github.com/pavanbhat1999/LWC-User-Page/tree/limit-monitoring`
+`git clone https://github.com/pavanbhat1999/LWC-User-Page/`
 
 2. Start Working on the project
 
 `cd LWC-User-Page`
+`git checkout limit-monitoring`
 
 3. Log in to your Salesforce org.
 
